@@ -40,7 +40,32 @@ public:
 	void print_values(int key);
 	int hash_code(int key);
 	bool serach_key(int key);
+    void display();
 };
+
+void Dictionary::display()
+{
+    for(int i = 0; i<MAX; i++)
+    {
+        Node* traverse, *temp;
+        if(dic[i] != NULL)
+        {
+            temp = dic[i]->link;
+		    traverse = temp;
+		    cout << "Values of " << i << " is : ";
+		    while (traverse->link != NULL)
+		    {
+			    cout << traverse->values << "->";
+			    traverse = traverse->link;
+		    }
+		    if (traverse->link == NULL)
+		    {
+			    cout << traverse->values << "->"
+				     << "NULL"<<endl;
+		    }
+            }
+    }
+}
 
 Dictionary::Dictionary()
 {
@@ -156,17 +181,61 @@ void Dictionary::print_values(int key)
 	}
 }
 
+
+
 int main()
 {
 	Dictionary dic1;
+    int n, key;
+	do
+    {
+        int choice;
+        cout<<"*********************** Menu **************************"<<endl;
+        cout<<"1.Create\n2.Display\n3.Search\n4.Exit\nEnter your choice: ";
+        cin>>choice;
 
-	
-	dic1.insert_values(2, "sonu");
-	dic1.insert_values(2, "ram");
-	dic1.insert_values(3, "mam");
-	// dic1.push(2);
-	dic1.print_values(2);
-	dic1.print_values(3);
+        switch (choice)
+        {
+        case 1:
+            /* code */
+            cout<<"Enter how many elements you want to enter in dictionary: ";
+            cin>>n;
+            for(int i = 0; i<n;i++)
+            {
+                string value;
+                cout<<"Enter key(int integer): ";
+                cin>>key;
+                cout<<"Enter value(string values): ";
+                cin>>value;
+                dic1.insert_values(key, value);
+            }
+            break;
+        case 2:
+            /* code */
+            cout<<"**************** Data In Dectionary *******************"<<endl;
+            dic1.display();
+            break;
+        case 3:
+            /* code */
+            cout<<"Enter Key to search: ";
+            cin>>key;
+            if (dic1.serach_key(key))
+                cout<<key<<" Found!!"<<endl;
+            else
+                cout<<key<<" Not found!!"<<endl;
+            break;
+        case 4:
+            /* code */
+            exit(0);
+            break;
+        
+        default:
+            cout<<"Plz Try again you enterd wrong option!!"<<endl;
+            break;
+        }
+        
 
+
+    }while(1);
 	return 0;
 }
